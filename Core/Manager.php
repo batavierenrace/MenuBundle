@@ -7,6 +7,7 @@ namespace Zetta\MenuBundle\Core;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Zetta\MenuBundle\Services\SecurityInterface;
 use Knp\Menu\Matcher\Voter\UriVoter;
 use Knp\Menu\Matcher\Matcher;
@@ -29,14 +30,15 @@ class Manager
      * @param FactoryInterface $factory
      * @param array $config
      */
-    public function __construct(ContainerInterface $container, FactoryInterface $factory,  SecurityInterface $security, Matcher $matcher,  array $config )
+    public function __construct(ContainerInterface $container, FactoryInterface $factory,  SecurityInterface $security, Matcher $matcher,  array $config, RequestStack $requestStack )
     {
         $this->container = $container;
         $this->factory = $factory;
         $this->config = $config;
         $this->security = $security;
         $this->matcher = $matcher;
-        if($container->isScopeActive('request'))
+        $this->requestStack = $requestStack;
+        if($requestStack->getCurrentRequest())
         {
             $this->matcher->addVoter(new UriVoter( $container->get('request')->getPathInfo() ));
         }

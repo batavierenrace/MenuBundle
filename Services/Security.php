@@ -4,6 +4,7 @@ namespace Zetta\MenuBundle\Services;
 
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Http\AccessMapInterface;
@@ -37,7 +38,7 @@ class Security implements SecurityInterface{
      * @param \Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface $accessDecisionManager
      * @param \Symfony\Component\Security\Core\SecurityContextInterface $securityContext
      */
-    public function __construct(RouterInterface $router,  AccessDecisionManagerInterface $accessDecisionManager, SecurityContextInterface $context,  AccessMapInterface $map, AnnotationDriver $securityAnnotationDriver ) {
+    public function __construct(RouterInterface $router,  AccessDecisionManagerInterface $accessDecisionManager, TokenStorageInterface $context,  AccessMapInterface $map, AnnotationDriver $securityAnnotationDriver ) {
         $this->router = $router;
         $this->accessDecisionManager = $accessDecisionManager;
         $this->context = $context;

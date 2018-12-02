@@ -10,46 +10,47 @@ services:
   zetta_menu.provider:
         class: Zetta\MenuBundle\Provider\MenuProvider
         arguments:
-          - @knp_menu.factory
-          - @zetta_menu.manager
+          - '@knp_menu.factory'
+          - '@zetta_menu.manager'
         tags:
           - { name: knp_menu.provider }
   zetta_menu.manager:
         class: '%zetta_menu.manager.class%'
         arguments:
-          - @service_container
-          - @knp_menu.factory
-          - @zetta_menu.security
-          - @knp_menu.matcher
-          - %zetta_menu.menu.configuration%
+          - '@service_container'
+          - '@knp_menu.factory'
+          - '@zetta_menu.security'
+          - '@knp_menu.matcher'
+          - '%zetta_menu.menu.configuration%'
+          - '@request_stack'
   zetta_menu.security:
-        class: %zetta_menu.security.class%
+        class: '%zetta_menu.security.class%'
         arguments:
-          - @router
-          - @security.access.decision_manager
-          - @security.context
-          - @security.access_map
-          - @security.extra.annotation_driver
+          - '@router'
+          - '@security.access.decision_manager'
+          - '@security.token_storage'
+          - '@security.access_map'
+          - '@security.extra.annotation_driver'
   zetta_menu.twig.extension:
-        class: %zetta_menu.twig.extension.class%
+        class: '%zetta_menu.twig.extension.class%'
         arguments:
-          - @zetta_menu.helper
+          - '@zetta_menu.helper'
         tags:
           - { name: twig.extension}
   zetta_menu.helper:
-        class: %zetta_menu.helper.class%
+        class: '%zetta_menu.helper.class%'
         arguments:
-          - @knp_menu.helper
-          - @knp_menu.factory
-          - @knp_menu.matcher
+          - '@knp_menu.helper'
+          - '@knp_menu.factory'
+          - '@knp_menu.matcher'
   knp_menu.menu_provider.builder_alias:
-        class: %zetta_menu.menu_provider.builder_alias.class%
+        class: '%zetta_menu.menu_provider.builder_alias.class%'
         public: false
         arguments:
-          - @kernel
-          - @service_container
-          - @knp_menu.factory
-          - @zetta_menu.security
+          - '@kernel'
+          - '@service_container'
+          - '@knp_menu.factory'
+          - '@zetta_menu.security'
         tags:
           - { name: knp_menu.provider }
 
