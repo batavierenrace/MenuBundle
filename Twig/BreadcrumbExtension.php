@@ -21,8 +21,8 @@ class BreadcrumbExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'zetta_breadcrumb_get' => new \Twig_Function_Method($this, 'get'),
-            'zetta_breadcrumb_render' => new \Twig_Function_Method($this, 'render', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('zetta_breadcrumb_get', array($this, 'get')),
+            new \Twig_SimpleFunction('zetta_breadcrumb_render', array($this, 'render'), array('is_safe' => array('html')))
         );
     }
 
